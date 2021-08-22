@@ -46,9 +46,8 @@ class Places:
     def __init__(self):
         self.client = googlemaps.Client(key=os.environ.get('API_KEY'))
 
-    def request_place(self, query='restaurant', location='Frederick, MD', radius=0.1, **kwargs):
-        m_radius = radius * MILES_TO_METERS
-        data = self.client.places(query=query, location=location, radius=m_radius)['results']
+    def request_place(self, query='restaurant', location='Frederick, MD', radius=1000, **kwargs):
+        data = self.client.places(query=query, location=location, radius=radius, **kwargs)['results']
         # return [get_important_data(d) for d in data] if format else data
         return data
 
@@ -84,4 +83,10 @@ def add_data_to_db(data):
     cur.executemany(f'''insert into {TABLE_NAME} values ({values_template})''', table_data)
 
 
+def select_all_data_from_db(selection):
+    return cur.execute(f'''select ''')
+
+
 add_data_to_db(places_data)
+
+selection = 
